@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ee0017f7252c089498ec2fd559f9ad79
+guid: c7297205955d2c8418c78dbf3d8d3e4e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 52
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -117,106 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_prev_ui_2
+      name: fall-removebg-preview_1
       rect:
         serializedVersion: 2
-        x: 7
-        y: 37
-        width: 138
-        height: 197
+        x: 64
+        y: 40
+        width: 120
+        height: 235
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11a93b3939d912645a67f316957e305d
-      internalID: -343134610
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle_prev_ui_3
-      rect:
-        serializedVersion: 2
-        x: 188
-        y: 37
-        width: 138
-        height: 197
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b4246327b86cd945a33a78d2011221e
-      internalID: 311779415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle_prev_ui_5
-      rect:
-        serializedVersion: 2
-        x: 380
-        y: 37
-        width: 138
-        height: 197
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f56b1e4f430b11d4caaa84111f19b9a1
-      internalID: -138346406
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle_prev_ui_6
-      rect:
-        serializedVersion: 2
-        x: 578
-        y: 37
-        width: 138
-        height: 197
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7d1380afc0d725b469c9b3a83af820f0
-      internalID: -840643478
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle_prev_ui_8
-      rect:
-        serializedVersion: 2
-        x: 763
-        y: 37
-        width: 138
-        height: 197
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: db594ca0200115c4e83168656c1f70ae
-      internalID: -603504549
+      spriteID: 8bd21be5bdcd00a409a02134ab95e49f
+      internalID: 505266033
       vertices: []
       indices: 
       edges: []
@@ -232,15 +148,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle_prev_ui_0: 1993353539
-      idle_prev_ui_1: -1805141591
-      idle_prev_ui_2: -343134610
-      idle_prev_ui_3: 311779415
-      idle_prev_ui_4: 1387276065
-      idle_prev_ui_5: -138346406
-      idle_prev_ui_6: -840643478
-      idle_prev_ui_7: -272644728
-      idle_prev_ui_8: -603504549
+      fall-removebg-preview_0: 1521916237
+      fall-removebg-preview_1: 505266033
+      fall-removebg-preview_2: 2048928442
+      fall-removebg-preview_3: 1540817654
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
