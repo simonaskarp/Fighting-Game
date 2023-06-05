@@ -3,17 +3,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public KeyCode up = KeyCode.W;
+    public KeyCode down = KeyCode.S;
+    public KeyCode left = KeyCode.A;
+    public KeyCode right = KeyCode.D;
     Rigidbody2D rb;
-    Animator animator;
+    public Attack attack;
+    public Animator animator;
     BoxCollider2D coll;
+    public Transform enemy;
     string currentState;
     public float moveSpeed = 7;
     public float jumpForce = 10;
     float dirX;
     bool jumpPressed = false;
-    bool isGrounded = false;
+    public bool isGrounded = false;
     bool crouchPressed = false;
-    bool isCrouched = false;
+    public bool isCrouched = false;
     bool crouchColl = false;
     public LayerMask layerMask = 0;
 
@@ -33,18 +39,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        dirX = Input.GetAxisRaw("Horizontal");
+        //dirX = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKey(left)) dirX = -1;
+        else if (Input.GetKey(right)) dirX = 1;
+        else dirX = 0;
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(up) && !attack.isAttacking && !attack.isBlocking)
         {
             jumpPressed = true;
         }
 
-        crouchPressed = Input.GetKey(KeyCode.S);
+        crouchPressed = Input.GetKey(down) && !attack.isAttacking;
     }
 
     private void FixedUpdate()
     {
+        if (transform.position.x > enemy.position.x) transform.localScale = new Vector3(-1, 1, 1);
+        else transform.localScale = Vector3.one;
+
         var groundHit = Physics2D.Raycast(transform.position, Vector2.down, 2f, layerMask);
         isGrounded = groundHit.collider != null;
 
@@ -68,6 +80,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        if (attack.isBlocking)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
         Vector2 vel = new Vector2(0, rb.velocity.y);
 
         if (dirX < 0)
@@ -83,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
             vel.x = 0;
         }
 
-        if (isGrounded)
+        if (isGrounded && !attack.isAttacking)
         {
             if (isCrouched)
             {
@@ -127,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = vel;
     }
 
-    void ChangeAnimationState(string newState)
+    public void ChangeAnimationState(string newState)
     {
         if (currentState == newState) return;
 
