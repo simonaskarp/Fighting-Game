@@ -36,17 +36,17 @@ public class Health : MonoBehaviour
 
     public void Damage(int amount)
     {
-        if (!attack.isBlocking)
-        {
+        //if (!attack.isBlocking)
+        //{
             onDamage.Invoke();
             hp -= amount;
             if (hp <= 0) Die();
             sprite.color = Color.red;
-            pMove.enabled = false;
-            attack.enabled = false;
-        }
+            //pMove.enabled = false;
+            //attack.enabled = false;
+        //}
+        //else sprite.color = Color.cyan;
         rb.velocity = knockback;
-        sprite.color = Color.cyan;
         Invoke("Refresh", kbTime);
     }
 
@@ -59,7 +59,7 @@ public class Health : MonoBehaviour
     {
         sprite.color = Color.white;
         rb.velocity = Vector2.zero;
-        pMove.enabled = true;
-        attack.enabled = true;
+        //pMove.enabled = true;
+        //attack.enabled = true;
     }
 }

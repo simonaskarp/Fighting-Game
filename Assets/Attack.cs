@@ -30,13 +30,17 @@ public class Attack : MonoBehaviour
     const string PLAYER_BLOCK_STAND = "Player_block_stand";
     const string PLAYER_BLOCK_CROUCH = "Player_block_crouch";
     const string PLAYER_L_PUNCH_STAND = "Player_light_punch_stand";
+    const string PLAYER_L_PUNCH_CROUCH = "Player_light_punch_crouch";
     const string PLAYER_H_PUNCH_STAND = "Player_hard_punch_stand";
+    const string PLAYER_H_PUNCH_CROUCH = "Player_hard_punch_crouch";
     const string PLAYER_L_KICK_STAND = "Player_light_kick_stand";
+    const string PLAYER_L_KICK_CROUCH = "Player_light_kick_crouch";
     const string PLAYER_H_KICK_STAND = "Player_hard_kick_stand";
+    const string PLAYER_H_KICK_CROUCH = "Player_hard_kick_crouch";
 
     private void Update()
     {
-        if (Input.GetKeyDown(punch) && !isAttacking)
+        if (Input.GetKeyDown(punch) && !isAttacking && !isBlocking)
         {
             attackPressed = true;
             if (!isAttacking && attackPressed && attackCount == 0)
@@ -47,7 +51,7 @@ public class Attack : MonoBehaviour
             dmgType = DamageType.punch;
         }
 
-        if (Input.GetKeyDown(kick) && !isAttacking)
+        if (Input.GetKeyDown(kick) && !isAttacking && !isBlocking)
         {
             attackPressed = true;
             if (!isAttacking && attackPressed && attackCount == 0)
@@ -58,7 +62,7 @@ public class Attack : MonoBehaviour
             dmgType = DamageType.kick;
         }
 
-        if (Input.GetKey(block) && pMove.isGrounded)
+        if (Input.GetKey(block) && pMove.isGrounded && !isAttacking && !attackPressed)
         {
             isBlocking = true;
             if (pMove.isCrouched) pMove.ChangeAnimationState(PLAYER_BLOCK_CROUCH);
@@ -118,6 +122,49 @@ public class Attack : MonoBehaviour
                 }
             }
         }
+
+        else if (pMove.isGrounded && pMove.isCrouched)
+        {
+            if (dmgType == DamageType.punch)
+            {
+                if (attackCount == 1)
+                {
+                    pMove.ChangeAnimationState(PLAYER_L_PUNCH_CROUCH);
+                    maxDistance = 2.5f;
+                    offset = new Vector3(0, 0.5f, 0);
+                    damage = 4;
+                    attackDelay = 0.1f;
+                }
+                else if (attackCount > 1)
+                {
+                    pMove.ChangeAnimationState(PLAYER_H_PUNCH_CROUCH);
+                    maxDistance = 2.5f;
+                    offset = new Vector3(0, 0.5f, 0);
+                    damage = 7;
+                    attackDelay = 0.25f;
+                }
+            }
+
+            else if (dmgType == DamageType.kick)
+            {
+                if (attackCount == 1)
+                {
+                    pMove.ChangeAnimationState(PLAYER_L_KICK_CROUCH);
+                    maxDistance = 3f;
+                    offset = new Vector3(0, -1f, 0);
+                    damage = 5;
+                    attackDelay = 0.1f;
+                }
+                else if (attackCount > 1)
+                {
+                    pMove.ChangeAnimationState(PLAYER_H_KICK_CROUCH);
+                    maxDistance = 4.5f;
+                    offset = new Vector3(0, -1f, 0);
+                    damage = 8;
+                    attackDelay = 0.3f;
+                }
+            }
+        }
         //var animLength = pMove.animator.GetCurrentAnimatorStateInfo(0).length;
         //Invoke("CastAttack", animLength / 2);
         Invoke("CastAttack", attackDelay);
@@ -136,6 +183,7 @@ public class Attack : MonoBehaviour
         }
 
         isAttacking = false;
+        attackPressed = false;
         attackCount = 0;
         dmgType = DamageType.none;
         damage = 0;

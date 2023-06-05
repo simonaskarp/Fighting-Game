@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         var groundHit = Physics2D.Raycast(transform.position, Vector2.down, 2f, layerMask);
         isGrounded = groundHit.collider != null;
 
-        isCrouched = crouchPressed && isGrounded;
+        isCrouched = crouchPressed && isGrounded || isCrouched && attack.isAttacking;
 
         if (isCrouched && !crouchColl)
         {
