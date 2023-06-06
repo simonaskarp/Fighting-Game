@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour
@@ -14,6 +15,8 @@ public class Health : MonoBehaviour
     Attack attack;
     Rigidbody2D rb;
     SpriteRenderer sprite;
+
+    public Slider healthSlider;
 
     public UnityEvent onDamage;
     public UnityEvent onDeath;
@@ -31,27 +34,35 @@ public class Health : MonoBehaviour
     private void Start()
     {
         hp = maxHp;
+        healthSlider.maxValue = maxHp;
+        healthSlider.value = maxHp;
         knockback = new Vector2(-kbForce * transform.localScale.x, rb.velocity.y);
     }
 
     public void Damage(int amount)
     {
-        //if (!attack.isBlocking)
-        //{
+        if (!attack.isBlocking)
+        {
             onDamage.Invoke();
             hp -= amount;
-            if (hp <= 0) Die();
+            healthSlider.value = hp;
+            if (hp <= 0)
+            {
+                healthSlider.value = 0;
+                Die();
+            }
             sprite.color = Color.red;
-            //pMove.enabled = false;
-            //attack.enabled = false;
-        //}
-        //else sprite.color = Color.cyan;
+            pMove.enabled = false;
+            attack.enabled = false;
+        }
+        else sprite.color = Color.cyan;
         rb.velocity = knockback;
         Invoke("Refresh", kbTime);
     }
 
     private void Die()
     {
+        pMove.ChangeAnimationState("Player_death");
         onDeath.Invoke();
     }
 
@@ -59,7 +70,7 @@ public class Health : MonoBehaviour
     {
         sprite.color = Color.white;
         rb.velocity = Vector2.zero;
-        //pMove.enabled = true;
-        //attack.enabled = true;
+        pMove.enabled = true;
+        attack.enabled = true;
     }
 }

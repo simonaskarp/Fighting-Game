@@ -18,6 +18,10 @@ public class Attack : MonoBehaviour
     float attackDelay = 0.1f;
     public bool isBlocking = false;
 
+    AudioSource audio;
+    public AudioClip lHit;
+    public AudioClip hHit;
+
     enum DamageType
     {
         punch,
@@ -37,6 +41,12 @@ public class Attack : MonoBehaviour
     const string PLAYER_L_KICK_CROUCH = "Player_light_kick_crouch";
     const string PLAYER_H_KICK_STAND = "Player_hard_kick_stand";
     const string PLAYER_H_KICK_CROUCH = "Player_hard_kick_crouch";
+
+    private void Start()
+    {
+        audio = gameObject.AddComponent<AudioSource>();
+        audio.volume = 1f;
+    }
 
     private void Update()
     {
@@ -80,6 +90,7 @@ public class Attack : MonoBehaviour
     {
         if (isBlocking) return;
         isAttacking = true;
+        audio.pitch = Random.Range(0.85f, 1.15f);
         if (pMove.isGrounded && !pMove.isCrouched)
         {
             if (dmgType == DamageType.punch)
@@ -91,6 +102,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, 1, 0);
                     damage = 5;
                     attackDelay = 0.1f;
+                    audio.PlayOneShot(lHit);
                 }
                 else if (attackCount > 1)
                 {
@@ -99,6 +111,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, 1, 0);
                     damage = 10;
                     attackDelay = 0.25f;
+                    audio.PlayOneShot(hHit);
                 }
             }
 
@@ -111,6 +124,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, -0.6f, 0);
                     damage = 5;
                     attackDelay = 0.1f;
+                    audio.PlayOneShot(lHit);
                 }
                 else if (attackCount > 1)
                 {
@@ -119,6 +133,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, 1.65f, 0);
                     damage = 12;
                     attackDelay = 0.3f;
+                    audio.PlayOneShot(hHit);
                 }
             }
         }
@@ -134,6 +149,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, 0.5f, 0);
                     damage = 4;
                     attackDelay = 0.1f;
+                    audio.PlayOneShot(lHit);
                 }
                 else if (attackCount > 1)
                 {
@@ -142,6 +158,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, 0.5f, 0);
                     damage = 7;
                     attackDelay = 0.25f;
+                    audio.PlayOneShot(hHit);
                 }
             }
 
@@ -154,6 +171,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, -1f, 0);
                     damage = 5;
                     attackDelay = 0.1f;
+                    audio.PlayOneShot(lHit);
                 }
                 else if (attackCount > 1)
                 {
@@ -162,6 +180,7 @@ public class Attack : MonoBehaviour
                     offset = new Vector3(0, -1f, 0);
                     damage = 8;
                     attackDelay = 0.3f;
+                    audio.PlayOneShot(hHit);
                 }
             }
         }

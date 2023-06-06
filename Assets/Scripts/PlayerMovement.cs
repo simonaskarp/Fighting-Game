@@ -146,10 +146,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeAnimationState(string newState)
     {
-        if (currentState == newState) return;
+        if( newState != "Player_death")
+        {
+            if (currentState == newState) return;
 
-        animator.Play(newState);
+            animator.Play(newState);
 
-        currentState = newState;
+            currentState = newState;
+        }
+        else
+        {
+            animator.Play("Player_death");
+        }
     }
 }
