@@ -46,7 +46,7 @@ public class Health : MonoBehaviour
             onDamage.Invoke();
             hp -= amount;
             healthSlider.value = hp;
-            if (hp <= 0)
+            if (hp <= 0 && pMove.currentState != "Player_death")
             {
                 healthSlider.value = 0;
                 Die();

@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     BoxCollider2D coll;
     public Transform enemy;
-    string currentState;
+    public string currentState;
     public float moveSpeed = 7;
     public float jumpForce = 10;
     float dirX;
@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeAnimationState(string newState)
     {
-        if( newState != "Player_death")
+        if (newState != "Player_death" && currentState != "Player_death")
         {
             if (currentState == newState) return;
 
@@ -157,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.Play("Player_death");
+            currentState = "Player_death";
         }
     }
 }

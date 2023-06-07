@@ -9,14 +9,12 @@ using UnityEngine.UI;
 public class GameControl : MonoBehaviour
 {
     public int nextSceneNumber;
-    public int gameOverScene;
-    public int drawScene;
 
     public int playerWins = 0;
     public int enemyWins = 0;
 
-    public GameObject player;
-    public GameObject enemy;
+    public Rigidbody2D player;
+    public Rigidbody2D enemy;
 
     public Health pHealth;
     public Health eHealth;
@@ -36,6 +34,12 @@ public class GameControl : MonoBehaviour
     public AudioClip death;
 
     public Image fightImg;
+
+    public GameObject revengeB;
+    public GameObject menuB;
+    public Image pWin;
+    public Image eWin;
+    public Image draw;
 
     private void OnDisable()
     {
@@ -60,8 +64,13 @@ public class GameControl : MonoBehaviour
     {
         audio = gameObject.AddComponent<AudioSource>();
         fightImg.enabled = false;
-        player.SetActive(false);
-        enemy.SetActive(false);
+        pWin.enabled = false;
+        eWin.enabled = false;
+        draw.enabled = false;
+        menuB.SetActive(false);
+        revengeB.SetActive(false);
+        player.bodyType = RigidbodyType2D.Static;
+        enemy.bodyType = RigidbodyType2D.Static;
         Invoke("Round", 0.2f);
     }
 
@@ -94,8 +103,8 @@ public class GameControl : MonoBehaviour
         audio.Play();
         audio.loop = true;
         gameTime.timerOn = true;
-        player.SetActive(true);
-        enemy.SetActive(true);
+        player.bodyType = RigidbodyType2D.Dynamic;
+        enemy.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void Update()
@@ -121,7 +130,8 @@ public class GameControl : MonoBehaviour
         {
             playerWins = 0;
             enemyWins = 0;
-            Invoke("GameOverScene", 1.5f);
+            eWin.enabled = true;
+            Invoke("GameOver", 1.5f);
         }
     }
 
@@ -140,7 +150,8 @@ public class GameControl : MonoBehaviour
         {
             playerWins = 0;
             enemyWins = 0;
-            Invoke("GameOverScene", 1.5f);
+            pWin.enabled = true;
+            Invoke("GameOver", 1.5f);
         }
     }
 
@@ -156,7 +167,8 @@ public class GameControl : MonoBehaviour
         {
             playerWins = 0;
             enemyWins = 0;
-            Invoke("DrawScene", 1.5f);
+            draw.enabled = true;
+            Invoke("Draw", 1.5f);
         }
     }
 
@@ -165,13 +177,19 @@ public class GameControl : MonoBehaviour
         SceneManager.LoadScene(nextSceneNumber);
     }
 
-    void GameOverScene()
+    void GameOver()
     {
-        SceneManager.LoadScene(gameOverScene);
+        player.bodyType = RigidbodyType2D.Static;
+        enemy.bodyType = RigidbodyType2D.Static;
+        menuB.SetActive(true);
+        revengeB.SetActive(true);
     }
 
-    void DrawScene()
+    void Draw()
     {
-        SceneManager.LoadScene(drawScene);
+        player.bodyType = RigidbodyType2D.Static;
+        enemy.bodyType = RigidbodyType2D.Static;
+        menuB.SetActive(true);
+        revengeB.SetActive(true);
     }
 }
